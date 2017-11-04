@@ -60,3 +60,5 @@ typings/
 # Compiled lib
 lib
 dist
+
+.vscode
