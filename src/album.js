@@ -4,4 +4,4 @@ export default function album() {
     getAlbums: ids => this.request(`${this.apiURL}albums/?ids=${ids}`),
     getTracks: id => this.request(`${this.apiURL}albums/${id}/tracks`),
   };
-};
+}

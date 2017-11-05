@@ -9,4 +9,4 @@ export default function search() {
     tracks: searcher.bind(this, 'track'),
     playlists: searcher.bind(this, 'playlist'),
   };
-};
+}
