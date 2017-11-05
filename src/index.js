@@ -1,21 +1,16 @@
-// import {
-//   search,
-//   searchAlbums,
-//   searchArtists,
-//   searchPlaylists,
-//   searchTracks,
-// } from './search';
+import album from './album';
+import search from './search';
 
-// import {
-//   getAlbum,
-//   getAlbums,
-//   getAlbumTracks,
-// } from './album';
+import API_URL from './config';
+import toJSON from './utils';
 
 export default class SpotifyWrapper {
   constructor(options) {
-    this.apiURL = options.apiURL || 'https://api.spotify.com/v1/';
+    this.apiURL = options.apiURL || API_URL;
     this.token = options.token;
+
+    this.album = album.bind(this)();
+    this.search = search.bind(this)();
   }
 
   request(url) {
@@ -25,6 +20,6 @@ export default class SpotifyWrapper {
       },
     };
 
-    fetch(url, headers);
+    return fetch(url, headers).then(toJSON);
   }
 }
