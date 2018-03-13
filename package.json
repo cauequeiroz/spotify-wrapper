@@ -11,8 +11,13 @@
     "prepush": "npm run lint && npm run test:coverage"
   },
   "nyc": {
-    "reporter": ["text", "html"],
-    "exclude": ["tests/**"],
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**"
+    ],
     "functions": 80,
     "lines": 80,
     "check-coverage": true
@@ -33,6 +38,7 @@
   },
   "homepage": "https://github.com/cauequeiroz/spotify-wrapper#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
@@ -41,6 +47,10 @@
     "eslint-plugin-import": "^2.9.0",
     "husky": "^0.14.3",
     "mocha": "^5.0.4",
-    "nyc": "^11.4.1"
+    "node-fetch": "^2.1.1",
+    "nyc": "^11.4.1",
+    "sinon": "^4.4.4",
+    "sinon-chai": "^3.0.0",
+    "sinon-stub-promise": "^4.0.0"
   }
 }
