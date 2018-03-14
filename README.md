@@ -19,7 +19,7 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 ## Installation
 
 ```sh
-$ npm install cauequeiroz-spotify-wrapper --save
+$ npm install spotify-wrapper --save
 ```
 
 ## How to use
@@ -28,16 +28,24 @@ $ npm install cauequeiroz-spotify-wrapper --save
 
 ```js
 // to import a specific method
-import { method } from 'cauequeiroz-spotify-wrapper';
+import SpotifyWrapper from 'spotify-wrapper';
 
-// to import everything
-import * as spotifyWrapper from 'cauequeiroz-spotify-wrapper';
+const spotify = new SpotifyWrapper({
+  token: 'YOUR_TOKEN_HERE'
+});
+
+// using  method
+spotify.search.artists('Incubus');
 ```
 
 ### CommonJS
 
 ```js
-var spotifyWrapper = require('cauequeiroz-spotify-wrapper');
+const SpotifyWrapper = require('spotify-wrapper').default;
+
+const spotify = new SpotifyWrapper({
+  token: 'YOUR_TOKEN_HERE'
+});
 ```
 
 ### UMD in Browser
@@ -50,37 +58,22 @@ var spotifyWrapper = require('cauequeiroz-spotify-wrapper');
 <script src="spotify-wrapper.umd.min.js"></script>
 ```
 
-After that the library will be available to the Global as `spotifyWrapper`. Follow an example:
+After that the library will be available to the Global as `SpotifyWrapper`. Follow an example:
 
 ```js
-const albums = spotifyWrapper.searchAlbums('Choosen Artist');
+
+const spotify = new SpotifyWrapper({
+  token: 'YOUR_TOKEN_HERE'
+});
+
+const albums = spotify.search.albums('Choosen Artist');
 ```
 
 ## Methods
 
 > Follow the methods that the library provides.
 
-### search(query, types)
-
-> Search for informations about artists, albums, tracks or playlists. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/).
-
-**Arguments**
-
-| Argument | Type              | Options                                 |
-|----------|-------------------|-----------------------------------------|
-|`query`   |*string*           | 'Any search query'                      |
-|`type`    |*Array of strings* | ['artist', 'album', 'track', 'playlist']|
-
-**Example**
-
-```js
-search('Incubus', ['artist', 'album'])
-  .then(data => {
-    // do what you want with the data
-  })
-```
-
-### searchAlbums(query)
+### search.albums(query)
 
 > Search for informations about Albums with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *album*.
 
@@ -94,13 +87,13 @@ search('Incubus', ['artist', 'album'])
 **Example**
 
 ```js
-searchAlbums('Incubus')
+spotify.search.albums('Incubus')
   .then(data => {
     // do what you want with the data
   })
 ```
 
-### searchArtists(query)
+### search.artists(query)
 
 > Search for informations about Artists with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *artist*.
 
@@ -114,13 +107,13 @@ searchAlbums('Incubus')
 **Example**
 
 ```js
-searchArtists('Incubus')
+spotify.search.artists('Incubus')
   .then(data => {
     // do what you want with the data
   })
 ```
 
-### searchTracks(query)
+### search.tracks(query)
 
 > Search for informations about Tracks with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *track*.
 
@@ -134,13 +127,13 @@ searchArtists('Incubus')
 **Example**
 
 ```js
-searchTracks('Drive')
+spotify.search.tracks('Drive')
   .then(data => {
     // do what you want with the data
   })
 ```
 
-### searchPlaylists(query)
+### search.playlists(query)
 
 > Search for informations about Playlist with provided query. Test in [Spotify Web Console](https://developer.spotify.com/web-api/console/get-search-item/) with type defined as *playlist*.
 
@@ -154,7 +147,7 @@ searchTracks('Drive')
 **Example**
 
 ```js
-searchPlaylists('Happy Day')
+spotify.search.playlists('Happy Day')
   .then(data => {
     // do what you want with the data
   })
