@@ -41,9 +41,11 @@ describe('SpotifyWrapper', () => {
   describe('Request method', () => {
 
     let stubedFetch;
+    let promise;
 
     beforeEach(() => {
       stubedFetch = sinon.stub(global, 'fetch');
+      promise = stubedFetch.returnsPromise();
     });
 
     afterEach(() => {
@@ -78,6 +80,15 @@ describe('SpotifyWrapper', () => {
       expect(stubedFetch).to.have.been.calledWith('http://foo.bar/', headers);
     });
 
+    it('should return json data', () => {
+      promise.resolves({ body: 'foo' });
+
+      const spotify = new SpotifyWrapper({ token: 'foo' });
+      const headers = { headers: { Authorization: `Bearer foo` } };
+
+      const request = spotify.request('http://foo.bar/');
+      expect(request.resolveValue).to.be.eql({ body: 'foo' });
+    });
   });
 
 });
