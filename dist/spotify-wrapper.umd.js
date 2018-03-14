@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,46 +86,56 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchPlaylists = exports.searchTracks = exports.searchArtists = exports.searchAlbums = exports.search = undefined;
 
-var _config = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config2 = _interopRequireDefault(_config);
+var _search = __webpack_require__(2);
+
+var _search2 = _interopRequireDefault(_search);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var search = exports.search = function search(query, type) {
-  return fetch('https://api.spotify.com/v1/search?q=' + query + '&type=' + type, { headers: { Authorization: 'Bearer ' + _config2.default } }).then(function (data) {
-    return data.json();
-  });
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var searchAlbums = exports.searchAlbums = function searchAlbums(query) {
-  return search(query, 'album');
-};
-var searchArtists = exports.searchArtists = function searchArtists(query) {
-  return search(query, 'artist');
-};
-var searchTracks = exports.searchTracks = function searchTracks(query) {
-  return search(query, 'track');
-};
-var searchPlaylists = exports.searchPlaylists = function searchPlaylists(query) {
-  return search(query, 'playlist');
-};
+var SpotifyWrapper = function () {
+  function SpotifyWrapper(_ref) {
+    var apiURL = _ref.apiURL,
+        token = _ref.token;
+
+    _classCallCheck(this, SpotifyWrapper);
+
+    this.apiURL = apiURL || 'https://api.spotify.com/v1/';
+    this.token = token;
+
+    this.search = _search2.default.bind(this)();
+  }
+
+  _createClass(SpotifyWrapper, [{
+    key: 'request',
+    value: function request(url) {
+      var headers = {
+        headers: {
+          Authorization: 'Bearer ' + this.token
+        }
+      };
+
+      return fetch(url, headers).then(function (data) {
+        return data.json();
+      });
+    }
+  }]);
+
+  return SpotifyWrapper;
+}();
+
+exports.default = SpotifyWrapper;
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+module.exports = __webpack_require__(0).default;
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var TOKEN = 'BQAdvKadgqOcw6kCp5vfNUQSGrXLCQWlJkVnrRU42it24wztwNJZDzT2lsPa5C9xmktBJeXOzWsQzqbx95nsCElMS6WxMx3YAKOJyPjX-qBB_SlqNsDpBVBjT-Ba2KlhANzKxcJV8q5HjgraTQs';
-
-exports.default = TOKEN;
 
 /***/ }),
 /* 2 */
@@ -134,15 +144,22 @@ exports.default = TOKEN;
 "use strict";
 
 
-var _search = __webpack_require__(0);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = search;
+function searcher(type, query) {
+  return this.request(this.apiURL + 'search?q=' + query + '&type=' + type);
+}
 
-module.exports = {
-  search: _search.search,
-  searchAlbums: _search.searchAlbums,
-  searchArtists: _search.searchArtists,
-  searchTracks: _search.searchTracks,
-  searchPlaylists: _search.searchPlaylists
-};
+function search() {
+  return {
+    albums: searcher.bind(this, 'album'),
+    artists: searcher.bind(this, 'artist'),
+    tracks: searcher.bind(this, 'track'),
+    playlists: searcher.bind(this, 'playlist')
+  };
+}
 
 /***/ })
 /******/ ]);

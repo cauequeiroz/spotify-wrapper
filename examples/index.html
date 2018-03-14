@@ -12,7 +12,10 @@
 
   <script src="../dist/spotify-wrapper.umd.min.js"></script>
   <script>
-    const albums = spotifyWrapper.searchAlbums('Paramore');
+    const spotify = new spotifyWrapper({
+      token: 'BQB1Lzk5MmtQ8h8Yn4Hlt-mt9sFfNzhKda1SclOa7E5w1z75Yvyj9NUVncwLJDDwZYJYDSOZYHHqCWJp0I4wMlDj52TJbnAu2xSMdFZlEzmc6ATsJKQeK9p64ubeaKDb-Fv1D5hQ_2L151e2MTo'
+    })
+    const albums = spotify.search.albums('Paramore');
 
     albums.then(data => {
       let markup = data.albums.items.map(item =>
