@@ -2,7 +2,7 @@
   "name": "spotify-wrapper",
   "version": "3.0.0",
   "description": "A wrapper to work with Spotify Web API.",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clear": "rimraf lib",
     "build": "npm run clear && ./node_modules/.bin/babel --out-dir lib src",
@@ -30,6 +30,10 @@
     "lines": 80,
     "check-coverage": true
   },
+  "files": [
+    "dist",
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cauequeiroz/spotify-wrapper.git"
