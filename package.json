@@ -1,6 +1,6 @@
 {
   "name": "cauequeiroz-spotify-wrapper",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A wrapper to work with Spotify Web API.",
   "main": "lib/index.js",
   "scripts": {
